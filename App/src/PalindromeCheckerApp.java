@@ -2,24 +2,39 @@ import java.util.Scanner;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
+
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Input : ");
                 String input = scanner.nextLine();
 
-                String normalized = input.replaceAll("\\s+", "").toLowerCase();
+                PalindromeService service = new PalindromeService();
+                boolean result = service.checkPalindrome(input);
 
-                boolean isPalindrome = true;
+                System.out.println("Is Palindrome? : " + result);
+            }
+        }
 
-                for (int i = 0; i < normalized.length() / 2; i++) {
+        class PalindromeService {
 
-                    if (normalized.charAt(i) !=
-                            normalized.charAt(normalized.length() - 1 - i)) {
+            public boolean checkPalindrome(String input) {
 
-                        isPalindrome = false;
-                        break;
-                    }
+                if (input == null) {
+                    return false;
                 }
 
-                System.out.println("Is Palindrome? : " + isPalindrome);
+                int start = 0;
+                int end = input.length() - 1;
+
+                while (start < end) {
+
+                    if (input.charAt(start) != input.charAt(end)) {
+                        return false;
+                    }
+
+                    start++;
+                    end--;
+                }
+
+                return true;
             }
         }
