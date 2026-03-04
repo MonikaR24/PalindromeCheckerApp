@@ -2,36 +2,38 @@ import java.util.Scanner;
 import java.util.Stack;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("Input : ");
                 String input = scanner.nextLine();
 
-                PalindromeStrategy strategy = new StackStrategy();
-                boolean result = strategy.check(input);
+                long startTime = System.nanoTime();
+
+                boolean result = isPalindrome(input);
+
+                long endTime = System.nanoTime();
+                long executionTime = endTime - startTime;
 
                 System.out.println("Is Palindrome? : " + result);
+                System.out.println("Execution Time : " + executionTime + " ns");
             }
-        }
 
-        interface PalindromeStrategy {
-            boolean check(String input);
-        }
+            private static boolean isPalindrome(String input) {
 
-        class StackStrategy implements PalindromeStrategy {
-
-            public boolean check(String input) {
-
-                Stack<Character> stack = new Stack<>();
-
-                for (char c : input.toCharArray()) {
-                    stack.push(c);
+                if (input == null) {
+                    return false;
                 }
 
-                for (char c : input.toCharArray()) {
-                    if (c != stack.pop()) {
+                String normalized = input.toLowerCase();
+
+                int start = 0;
+                int end = normalized.length() - 1;
+
+                while (start < end) {
+                    if (normalized.charAt(start) != normalized.charAt(end)) {
                         return false;
                     }
+                    start++;
+                    end--;
                 }
 
                 return true;
