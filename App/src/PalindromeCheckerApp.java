@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 import java.util.Scanner;
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
@@ -7,24 +6,21 @@ public class PalindromeCheckerApp {
                 System.out.print("Input : ");
                 String input = scanner.nextLine();
 
-                LinkedList<Character> list = new LinkedList<>();
+                boolean result = check(input, 0, input.length() - 1);
 
-                for (char c : input.toCharArray()) {
-                    list.add(c);
+                System.out.println("Is Palindrome? : " + result);
+            }
+
+            private static boolean check(String s, int start, int end) {
+
+                if (start >= end) {
+                    return true;
                 }
 
-                boolean isPalindrome = true;
-
-                while (list.size() > 1) {
-                    char first = list.removeFirst();
-                    char last = list.removeLast();
-
-                    if (first != last) {
-                        isPalindrome = false;
-                        break;
-                    }
+                if (s.charAt(start) != s.charAt(end)) {
+                    return false;
                 }
 
-                System.out.println("Is Palindrome? : " + isPalindrome);
+                return check(s, start + 1, end - 1);
             }
         }
